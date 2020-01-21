@@ -8,6 +8,7 @@ public class TicTacToeEngine : MonoBehaviour
     protected GameObjectState blank = new Blank();
     int bestMove = -1;
     int bestLocation = -1;
+    int depth = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,7 @@ public class TicTacToeEngine : MonoBehaviour
             Transform sector = board.transform.Find("GameObjects").transform.GetChild(i);
             if (sector.GetComponent<SectorSystem>().GetState().Equals(blank.ToString()))
             {
-                int score = MiniMax(board);
+                int score = MiniMax(board,0,true);
                 if (score > bestMove)
                 {
                     bestMove = score;
@@ -48,9 +49,28 @@ public class TicTacToeEngine : MonoBehaviour
         }
         bestMove = -1;
     }
-
-    int MiniMax(GameObject board)
+    enum SCORE
     {
+        X=1,
+        O=-1,
+        TIE=0
+    }
+    int MiniMax(GameObject board, int depth,bool isMaximizing)
+    {
+        if (isMaximizing)
+        {
+            for (int i = 0; i < board.transform.Find("GameObjects").transform.childCount; i++)
+            {
+                Transform sector = board.transform.Find("GameObjects").transform.GetChild(i);
+                if (sector.GetComponent<SectorSystem>().GetState().Equals(blank.ToString()))
+                {
+                    sector.GetComponent<SectorSystem>().Place_O();
+                    int currentScore = MiniMax(board, depth + 1, false);
+                    sector.GetComponent<SectorSystem>().Blank();
+                }
+            }
+        }
         return 1;
+        
     }
 }

@@ -26,6 +26,13 @@ public abstract class StateMachine : MonoBehaviour
         return state.ToString();
     }
 
+    public string SetStateBlank(GameObjectState state, GameObject gameObjectX, GameObject gameObjectO)
+    {
+        //State = state;
+        StartCoroutine(state.RemoveObject(gameObjectX, gameObjectO));
+        return state.ToString();
+    }
+
     public virtual string GetState()
     {
         return blank.ToString();

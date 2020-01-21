@@ -18,7 +18,6 @@ public class PlaceX : GameObjectState
         yield break;
     }
 
-    
     public override string ToString()
     {
         return "This Sector is X";

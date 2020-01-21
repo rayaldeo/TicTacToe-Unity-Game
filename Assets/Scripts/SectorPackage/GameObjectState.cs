@@ -20,6 +20,11 @@ public abstract class GameObjectState
         yield break;
     }
 
+    public virtual IEnumerator RemoveObject(GameObject gameObjectX, GameObject gameObjectO)
+    {
+        yield break;
+    }
+
     public abstract string ToString();
 
     public virtual bool PlayerTurnFinish()

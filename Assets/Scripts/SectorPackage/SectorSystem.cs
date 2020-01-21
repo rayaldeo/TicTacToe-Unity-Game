@@ -4,19 +4,21 @@ using System.Collections;
 public class SectorSystem : StateMachine
  {
 
-    public GameObjectState placeX = new PlaceX();
-    public GameObjectState placeO = new PlaceO();
+    GameObjectState placeX = new PlaceX();
+    GameObjectState placeO = new PlaceO();
+    GameObjectState blank = new Blank();
 
     public GameObject xObject;
     public GameObject oObject;
 
     public int location;
 
-    string state = "Blank";
+    public string state ="";
 
     // Start is called before the first frame update
     void Start()
     {
+        state = blank.ToString();
     }
 
     // Update is called once per frame
@@ -27,12 +29,19 @@ public class SectorSystem : StateMachine
     
     public void Place_X()
     {
-        state=SetState(placeX, xObject);
+        if(state== blank.ToString())
+            state=SetState(placeX, xObject);
     }
 
     public void Place_O()
     {
-        state=SetState(placeO, oObject);
+        if (state == blank.ToString())
+            state =SetState(placeO, oObject);
+    }
+
+    public void Blank()
+    {
+        state = SetStateBlank(blank, xObject, oObject);
     }
 
     public override string GetState()

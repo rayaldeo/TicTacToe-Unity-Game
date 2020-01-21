@@ -14,4 +14,11 @@ public class Blank : GameObjectState
     {
         return "Blank";
     }
+
+    public override IEnumerator RemoveObject(GameObject gameObjectX, GameObject gameObjectO)
+    {
+        gameObjectX.SetActive(false);
+        gameObjectO.SetActive(false);
+        yield break;
+    }
 }
