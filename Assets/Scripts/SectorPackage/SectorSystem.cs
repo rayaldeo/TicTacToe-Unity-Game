@@ -18,35 +18,31 @@ public class SectorSystem : StateMachine
     // Start is called before the first frame update
     void Start()
     {
-        state = blank.ToString();
+        SetState(blank);
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log("This is this sector's location: "+this.location +" and its state: "+this.state);
+        state = GetState();
     }
     
     public void Place_X()
     {
-        if(state== blank.ToString())
-            state=SetState(placeX, xObject);
+        if(GetState() == blank.ToString())
+            SetState(placeX, xObject);
     }
 
     public void Place_O()
     {
-        if (state == blank.ToString())
-            state =SetState(placeO, oObject);
+        if (GetState()==blank.ToString())
+            SetState(placeO, oObject);
     }
 
     public void Blank()
     {
-        state = SetStateBlank(blank, xObject, oObject);
-    }
-
-    public override string GetState()
-    {
-        return state;
+        SetStateBlank(blank, xObject, oObject);
     }
 
     public int GetLocation()

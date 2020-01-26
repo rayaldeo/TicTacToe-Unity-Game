@@ -23,14 +23,14 @@ public class GameStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(board.GetComponent<BoardController>().CountAvailableSectors());
+        //Debug.Log(board.GetComponent<BoardController>().CountAvailableSectors());
         if (state == BattleState.PLAYERTURN)
         {
-            Debug.Log("Player, choose where your position");
+            //Debug.Log("Player, choose where your position");
             if (board.GetComponent<BoardController>().CountAvailableSectors() == boardObjectCount - 1)
             {
                 Debug.Log("Player completed their turn");
-                state = BattleState.ENEMYTURN;
+                //state = BattleState.ENEMYTURN;
                 boardObjectCount = board.GetComponent<BoardController>().CountAvailableSectors();
             }
         }
@@ -77,7 +77,8 @@ public class GameStateController : MonoBehaviour
         else
         {
             Debug.Log("Computer goes first");
-            state = BattleState.ENEMYTURN;
+            //state = BattleState.ENEMYTURN;
+            state = BattleState.PLAYERTURN;
         }
     }
 }

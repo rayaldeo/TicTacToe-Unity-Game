@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class StateMachine : MonoBehaviour
 {
     protected GameObjectState blank= new Blank();
+    protected GameObjectState state;
 
     // Start is called before the first frame update
     void Start()
@@ -18,23 +19,28 @@ public abstract class StateMachine : MonoBehaviour
 
     }
 
+    public void SetState(GameObjectState state)
+    {
+        this.state = state;
+    }
+
 
     public string SetState(GameObjectState state, GameObject gameObject)
     {
-        //State = state;
+        this.state = state;
         StartCoroutine(state.PlaceObject(gameObject));
         return state.ToString();
     }
 
     public string SetStateBlank(GameObjectState state, GameObject gameObjectX, GameObject gameObjectO)
     {
-        //State = state;
+        this.state = state;
         StartCoroutine(state.RemoveObject(gameObjectX, gameObjectO));
         return state.ToString();
     }
 
     public virtual string GetState()
     {
-        return blank.ToString();
+        return state.ToString();
     }
 }
