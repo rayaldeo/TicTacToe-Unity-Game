@@ -276,6 +276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xObject: {fileID: 3108211991172788518}
   oObject: {fileID: 5255954352649848642}
+  location: 0
+  state: 
 --- !u!1 &2641000707780569408
 GameObject:
   m_ObjectHideFlags: 0
