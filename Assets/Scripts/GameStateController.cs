@@ -58,7 +58,7 @@ public class GameStateController : MonoBehaviour
         DecideWhoGoesFirst();
         //board.GetComponent<Blink>().enabled=(false);
         //board.GetComponent<TicTacToeEngine>().enabled=(true);
-        board.GetComponent<BoardController>().resetBoard();
+        board.GetComponent<BoardController>().ResetBoard();
         canvas.SetActive(false);
     }
 

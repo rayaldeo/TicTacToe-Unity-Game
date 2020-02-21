@@ -13,7 +13,8 @@ public class SectorSystem : StateMachine
 
     public int location;
 
-    public string state ="";
+    public GameObjectState state;
+    public string stateString;
 
     // Start is called before the first frame update
     void Start()
@@ -25,18 +26,18 @@ public class SectorSystem : StateMachine
     void Update()
     {
         //Debug.Log("This is this sector's location: "+this.location +" and its state: "+this.state);
-        state = GetState();
+        stateString = GetState().ToString();
     }
     
     public void Place_X()
     {
-        if(GetState() == blank.ToString())
+        if(GetState() == blank)
             SetState(placeX, xObject);
     }
 
     public void Place_O()
     {
-        if (GetState()==blank.ToString())
+        if (GetState()==blank)
             SetState(placeO, oObject);
     }
 

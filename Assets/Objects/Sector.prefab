@@ -218,7 +218,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2641000707543249673}
-        m_MethodName: Place_X
+        m_MethodName: Place_O
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -277,7 +277,7 @@ MonoBehaviour:
   xObject: {fileID: 3108211991172788518}
   oObject: {fileID: 5255954352649848642}
   location: 0
-  state: 
+  stateString: 
 --- !u!1 &2641000707780569408
 GameObject:
   m_ObjectHideFlags: 0

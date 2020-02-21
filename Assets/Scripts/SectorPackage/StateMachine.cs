@@ -39,8 +39,8 @@ public abstract class StateMachine : MonoBehaviour
         return state.ToString();
     }
 
-    public virtual string GetState()
+    public virtual GameObjectState GetState()
     {
-        return state.ToString();
+        return state;
     }
 }

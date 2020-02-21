@@ -31,7 +31,14 @@ public abstract class GameObjectState
     {
         return true;
     }
-    
+
+    public override bool Equals(object obj)
+    {
+        if (obj.GetType() == this.GetType())
+            return true;
+        return false;   
+    }
+
 
 
 }

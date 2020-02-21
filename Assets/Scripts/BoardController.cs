@@ -20,37 +20,23 @@ public class BoardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (BoardIsNotFull())
-        {
-            Debug.Log("Board Controller has been started");
-        }
-
-        Debug.Log("Winner Found:" + whereIsTheWinner());
-        //foreach (Transform child in board.transform)
-        //{
-        //    while (child.gameObject.GetComponent<SectorSystem>().GetState().equals(blank.GetString()))
-        //    {
-        //        Debug.Log("This is this sector's location: " + child.gameObject.GetComponent<SectorSystem>().GetLocation() + " and its state: " + child.gameObject.GetComponent<SectorSystem>().GetState());
-        //    }
-        //}
-        //Debug.Log("Game has been started");
+        Debug.Log("Winner Found:" + IsThereAWinner());
     }
 
-    void disableAllGameObjects()
+    void DisableAllGameObjects()
     {
         foreach (Transform child in board.transform)
             child.gameObject.SetActive(false);
     }
 
-    void enableAllGameObjects()
+    void EnableAllGameObjects()
     {
         Debug.Log("Enable All Game Objects function called");
         foreach (Transform child in board.transform)
             child.gameObject.SetActive(true);
     }
 
-    public void resetBoard()
+    public void ResetBoard()
     {
         foreach (Transform child in board.transform)
         {
@@ -60,19 +46,7 @@ public class BoardController : MonoBehaviour
         }
            
     }
-
-    public bool BoardIsNotFull()
-    {
-        return true;
-        //foreach (Transform child in board.transform)
-        //{
-        //    if (!child.gameObject.GetComponent<SectorSystem>().GetState().equals(blank.GetString()))
-        //    {
-        //        Debug.Log("This is this sector's location: " + child.gameObject.GetComponent<SectorSystem>().GetLocation() + " and its state: " + child.gameObject.GetComponent<SectorSystem>().GetState());
-        //    }
-        //}
-    }
-
+    
     public void DisableBoardForPlayer()
     {
         foreach (Transform child in board.transform)
@@ -90,7 +64,7 @@ public class BoardController : MonoBehaviour
         int count = board.transform.childCount;
         foreach (Transform child in board.transform)
         {
-            if (!child.gameObject.GetComponent<SectorSystem>().GetState().Equals(blank.ToString()))
+            if (child.gameObject.GetComponent<SectorSystem>().GetState()!=blank)
             {
                 count--;
             }
@@ -98,9 +72,9 @@ public class BoardController : MonoBehaviour
         return count;
     }
 
-    public bool whereIsTheWinner()
+    public int[] WhereIsTheWinner()
     {
-
+        int[] noWinner= { };
         int[] winningArray1 = { 0, 1, 2 };
         int[] winningArray2 = { 3, 4, 5 };
         int[] winningArray3 = { 6, 7, 8 };
@@ -111,72 +85,79 @@ public class BoardController : MonoBehaviour
         int[] winningArray8 = { 2, 4, 6 };
 
         // check rows for X
-        if (board.transform.GetChild(winningArray1[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-            && board.transform.GetChild(winningArray1[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-            && board.transform.GetChild(winningArray1[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray1[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+            && board.transform.GetChild(winningArray1[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+            && board.transform.GetChild(winningArray1[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray1; }
 
-        if (board.transform.GetChild(winningArray2[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-           && board.transform.GetChild(winningArray2[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-           && board.transform.GetChild(winningArray2[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray2[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+           && board.transform.GetChild(winningArray2[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+           && board.transform.GetChild(winningArray2[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray2; }
 
-        if (board.transform.GetChild(winningArray3[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-            && board.transform.GetChild(winningArray3[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-            && board.transform.GetChild(winningArray3[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray3[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+            && board.transform.GetChild(winningArray3[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+            && board.transform.GetChild(winningArray3[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray3; }
 
-        if (board.transform.GetChild(winningArray4[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-            && board.transform.GetChild(winningArray4[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-            && board.transform.GetChild(winningArray4[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray4[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+            && board.transform.GetChild(winningArray4[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+            && board.transform.GetChild(winningArray4[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray4; }
 
-        if (board.transform.GetChild(winningArray5[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-           && board.transform.GetChild(winningArray5[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-           && board.transform.GetChild(winningArray5[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray5[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+           && board.transform.GetChild(winningArray5[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+           && board.transform.GetChild(winningArray5[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray5; }
 
-        if (board.transform.GetChild(winningArray6[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-           && board.transform.GetChild(winningArray6[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-           && board.transform.GetChild(winningArray6[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray6[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+           && board.transform.GetChild(winningArray6[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+           && board.transform.GetChild(winningArray6[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray6; }
 
-        if (board.transform.GetChild(winningArray7[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-          && board.transform.GetChild(winningArray7[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-          && board.transform.GetChild(winningArray7[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray7[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+          && board.transform.GetChild(winningArray7[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+          && board.transform.GetChild(winningArray7[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray7; }
 
-        if (board.transform.GetChild(winningArray8[0]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-         && board.transform.GetChild(winningArray8[1]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())
-         && board.transform.GetChild(winningArray8[2]).GetComponent<SectorSystem>().GetState() == (placeX.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray8[0]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+         && board.transform.GetChild(winningArray8[1]).GetComponent<SectorSystem>().GetState().Equals(placeX)
+         && board.transform.GetChild(winningArray8[2]).GetComponent<SectorSystem>().GetState().Equals(placeX)) { return winningArray8; }
 
 
         // check rows for O
-        if (board.transform.GetChild(winningArray1[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray1[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray1[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray1[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray1[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray1[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray1; }
 
-        if (board.transform.GetChild(winningArray2[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray2[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray2[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray2[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray2[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray2[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray2; }
 
-        if (board.transform.GetChild(winningArray3[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-            && board.transform.GetChild(winningArray3[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-            && board.transform.GetChild(winningArray3[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray3[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+            && board.transform.GetChild(winningArray3[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+            && board.transform.GetChild(winningArray3[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray3; }
 
-        if (board.transform.GetChild(winningArray4[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-            && board.transform.GetChild(winningArray4[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-            && board.transform.GetChild(winningArray4[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray4[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+            && board.transform.GetChild(winningArray4[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+            && board.transform.GetChild(winningArray4[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray4; }
 
-        if (board.transform.GetChild(winningArray5[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray5[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray5[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray5[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray5[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray5[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray5; }
 
-        if (board.transform.GetChild(winningArray6[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray6[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-           && board.transform.GetChild(winningArray6[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray6[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray6[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+           && board.transform.GetChild(winningArray6[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray6; }
 
-        if (board.transform.GetChild(winningArray7[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-          && board.transform.GetChild(winningArray7[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-          && board.transform.GetChild(winningArray7[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray7[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+          && board.transform.GetChild(winningArray7[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+          && board.transform.GetChild(winningArray7[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray7; }
 
-        if (board.transform.GetChild(winningArray8[0]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-         && board.transform.GetChild(winningArray8[1]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())
-         && board.transform.GetChild(winningArray8[2]).GetComponent<SectorSystem>().GetState() == (placeO.ToString())) { return true; }
+        if (board.transform.GetChild(winningArray8[0]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+         && board.transform.GetChild(winningArray8[1]).GetComponent<SectorSystem>().GetState().Equals(placeO)
+         && board.transform.GetChild(winningArray8[2]).GetComponent<SectorSystem>().GetState().Equals(placeO)) { return winningArray8; }
 
+        return noWinner;
+    }
+
+    public bool IsThereAWinner()
+    {
+        if (WhereIsTheWinner().Length == 3)
+            return true;
         return false;
     }
 }
