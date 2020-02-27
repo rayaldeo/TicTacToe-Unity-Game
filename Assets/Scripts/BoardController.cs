@@ -21,6 +21,9 @@ public class BoardController : MonoBehaviour
     void Update()
     {
         Debug.Log("Winner Found:" + IsThereAWinner());
+        WhoWon();
+
+        Debug.Log("Available Sectors: " + CountAvailableSectors());
     }
 
     void DisableAllGameObjects()
@@ -64,7 +67,7 @@ public class BoardController : MonoBehaviour
         int count = board.transform.childCount;
         foreach (Transform child in board.transform)
         {
-            if (child.gameObject.GetComponent<SectorSystem>().GetState()!=blank)
+            if (!child.gameObject.GetComponent<SectorSystem>().GetState().Equals(blank))
             {
                 count--;
             }
@@ -159,5 +162,46 @@ public class BoardController : MonoBehaviour
         if (WhereIsTheWinner().Length == 3)
             return true;
         return false;
+    }
+
+    public int WhoWon()
+    {
+        if (IsThereAWinner()) {
+
+            if (board.transform.GetChild(WhereIsTheWinner()[0]).GetComponent<SectorSystem>().GetState().Equals(placeX))
+            {
+                Debug.Log("Player is the Winner");
+                return 1;
+            }
+            else
+            {
+                Debug.Log("Computer is the Winner");
+                return -1;
+            }
+        }
+        else if(CountAvailableSectors()==0 && !IsThereAWinner())
+        {
+            Debug.Log("The board is Tied");
+            return 0;
+        }
+        else
+        {
+            Debug.Log("No Winner Found nor is the board full");
+            return 0;
+        }
+       
+    }
+
+    public void TieTheBoard()
+    {
+        board.transform.GetChild(0).GetComponent<SectorSystem>().Place_X();
+        board.transform.GetChild(1).GetComponent<SectorSystem>().Place_O();
+        board.transform.GetChild(2).GetComponent<SectorSystem>().Place_X();
+        board.transform.GetChild(3).GetComponent<SectorSystem>().Place_O();
+        board.transform.GetChild(4).GetComponent<SectorSystem>().Place_X();
+        board.transform.GetChild(5).GetComponent<SectorSystem>().Place_O();
+        board.transform.GetChild(6).GetComponent<SectorSystem>().Place_O();
+        board.transform.GetChild(7).GetComponent<SectorSystem>().Place_X();
+        board.transform.GetChild(8).GetComponent<SectorSystem>().Place_O();
     }
 }

@@ -59,6 +59,7 @@ public class GameStateController : MonoBehaviour
         //board.GetComponent<Blink>().enabled=(false);
         //board.GetComponent<TicTacToeEngine>().enabled=(true);
         board.GetComponent<BoardController>().ResetBoard();
+        //board.GetComponent<BoardController>().TieTheBoard();
         canvas.SetActive(false);
     }
 

@@ -11,8 +11,7 @@ public class SectorSystem : StateMachine
     public GameObject xObject;
     public GameObject oObject;
 
-    public int location;
-
+   
     public GameObjectState state;
     public string stateString;
 
@@ -46,8 +45,4 @@ public class SectorSystem : StateMachine
         SetStateBlank(blank, xObject, oObject);
     }
 
-    public int GetLocation()
-    {
-        return location;
-    }
 }
