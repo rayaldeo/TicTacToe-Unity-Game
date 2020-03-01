@@ -9,14 +9,14 @@ public class GameStateController : MonoBehaviour
     public GameObject canvas;
     public enum BattleState { EMPTY,PLAYERTURN, ENEMYTURN }
     public BattleState state=BattleState.EMPTY;
-    TicTacToeEngine ttte;
+    public TicTacToeEngine ttte;
 
     private int boardObjectCount;
 
     // Start is called before the first frame update
     void Start()
     {
-        ttte = new TicTacToeEngine();
+        //ttte = new TicTacToeEngine();
         boardObjectCount = board.GetComponent<BoardController>().CountAvailableSectors();
     }
 
@@ -30,7 +30,7 @@ public class GameStateController : MonoBehaviour
             if (board.GetComponent<BoardController>().CountAvailableSectors() == boardObjectCount - 1)
             {
                 Debug.Log("Player completed their turn");
-                //state = BattleState.ENEMYTURN;
+                state = BattleState.ENEMYTURN;
                 boardObjectCount = board.GetComponent<BoardController>().CountAvailableSectors();
             }
         }
@@ -38,7 +38,7 @@ public class GameStateController : MonoBehaviour
         {
             Debug.Log("Computer is thinking");
             board.GetComponent<BoardController>().DisableBoardForPlayer();
-            ttte.IAmThinking(board);
+            ttte.IAmThinking();
             if (board.GetComponent<BoardController>().CountAvailableSectors() == boardObjectCount - 1)
             {
                 Debug.Log("Enemy has completed their turn");
@@ -59,7 +59,7 @@ public class GameStateController : MonoBehaviour
         //board.GetComponent<Blink>().enabled=(false);
         //board.GetComponent<TicTacToeEngine>().enabled=(true);
         board.GetComponent<BoardController>().ResetBoard();
-        //board.GetComponent<BoardController>().TieTheBoard();
+        //board.GetComponent<BoardController>().TieTheBoard();//Debug purposes only
         canvas.SetActive(false);
     }
 
@@ -78,8 +78,8 @@ public class GameStateController : MonoBehaviour
         else
         {
             Debug.Log("Computer goes first");
-            //state = BattleState.ENEMYTURN;
-            state = BattleState.PLAYERTURN;
+            state = BattleState.ENEMYTURN;
+            //state = BattleState.PLAYERTURN;
         }
     }
 }

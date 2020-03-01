@@ -30,13 +30,13 @@ public class SectorSystem : StateMachine
     
     public void Place_X()
     {
-        if(GetState() == blank)
+        if(GetState() != placeO)
             SetState(placeX, xObject);
     }
 
     public void Place_O()
     {
-        if (GetState()==blank)
+        if (GetState() != placeX)
             SetState(placeO, oObject);
     }
 

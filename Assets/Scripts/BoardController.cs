@@ -20,10 +20,10 @@ public class BoardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Winner Found:" + IsThereAWinner());
-        WhoWon();
+        //Debug.Log("Winner Found:" + IsThereAWinner());
+        //WhoWon();
 
-        Debug.Log("Available Sectors: " + CountAvailableSectors());
+        //Debug.Log("Available Sectors: " + CountAvailableSectors());
     }
 
     void DisableAllGameObjects()

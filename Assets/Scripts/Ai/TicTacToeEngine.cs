@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class TicTacToeEngine : MonoBehaviour
 {
 
+    public GameObject board;
+
     protected GameObjectState blank = new Blank();
     protected GameObjectState placeX = new PlaceX();
     protected GameObjectState placeO = new PlaceO();
-    float bestMove = -Mathf.Infinity;
-    float bestLocation = -Mathf.Infinity;
     float depth = 0;
 
     // Start is called before the first frame update
@@ -22,79 +23,75 @@ public class TicTacToeEngine : MonoBehaviour
     {
     }
 
-    public void IAmThinking(GameObject board)
+    public void IAmThinking()
     {
+        float bestScore = -Mathf.Infinity;
+        float bestLocation=-1;
         Debug.Log("I am thinking..beep...bap...boop");
-        Debug.Log("AI:"+board.transform.Find("GameObjects").transform.childCount);
 
-        for (int i = 0; i < board.transform.Find("GameObjects").transform.childCount; i++)
+        for (int i = 0; i < board.transform.childCount; i++)
         {
-            Debug.Log("Index:" + i);
-            Transform sector = board.transform.Find("GameObjects").transform.GetChild(i);
-            if (sector.GetComponent<SectorSystem>().GetState().Equals(blank.ToString()))
+            Transform sector = board.transform.GetChild(i);
+            if (sector.GetComponent<SectorSystem>().GetState().Equals(blank))
             {
-                Debug.Log("MiniMax this shit!!");
+                //Debug.Log("MiniMax this shit!!");
                 sector.GetComponent<SectorSystem>().SetState(placeO);
-                float score = MiniMax(board, 0, false);
+                float score = MiniMax(this.board, 0, false);
                 sector.GetComponent<SectorSystem>().SetState(blank);
                 Debug.Log("AI got this score:" + score);
 
-                if (score > bestMove)
+                if (score > bestScore)
                 {
-                    bestMove = score;
+                    bestScore = score;
                     bestLocation = i;
+                    Debug.Log("Best Location:" + bestLocation);
                 }
             }
         }
-        board.transform.Find("GameObjects").transform.GetChild((int)bestLocation).GetComponent<SectorSystem>().Place_O();
+        board.transform.GetChild((int)bestLocation).GetComponent<SectorSystem>().Place_O();
     }
 
-
-    enum SCORE
-    {
-        X=1,
-        O=-1,
-        TIE=0
-    }
 
     float MiniMax(GameObject board, int depth,bool isMaximizing)
     {
-        float bestScore = -Mathf.Infinity;
+        int whoWon = board.GetComponent<BoardController>().WhoWon();
+        if (whoWon != 0)
+        {
+            return whoWon;
+            Debug.Log("Predicting who won:" + whoWon);
+        }
+       
         if (isMaximizing)
         {
-            for (int i = 0; i < board.transform.Find("GameObjects").transform.childCount; i++)
+            float bestScore = -Mathf.Infinity;
+            for (int i = 0; i < board.transform.childCount; i++)
             {
-                Transform sector = board.transform.Find("GameObjects").transform.GetChild(i);
-                if (sector.GetComponent<SectorSystem>().GetState().Equals(blank.ToString()))
+                Transform sector = board.transform.GetChild(i);
+                if (sector.GetComponent<SectorSystem>().GetState().Equals(blank))
                 {
                     sector.GetComponent<SectorSystem>().SetState(placeO);
-                    float currentScore = MiniMax(board, depth + 1, false);
+                    float currentScore = MiniMax(this.board, depth + 1, false);
                     sector.GetComponent<SectorSystem>().SetState(blank);
-                    if (currentScore > bestScore)
-                    {
-                        bestScore = currentScore;
-                    }
+                    bestScore = Math.Max(currentScore, bestScore);
                 }
             }
+            return bestScore;
         }
         else
         {
-            bestScore = Mathf.Infinity;
-            for (int i = 0; i < board.transform.Find("GameObjects").transform.childCount; i++)
+            float bestScore = Mathf.Infinity;
+            for (int i = 0; i < board.transform.childCount; i++)
             {
-                Transform sector = board.transform.Find("GameObjects").transform.GetChild(i);
-                if (sector.GetComponent<SectorSystem>().GetState().Equals(blank.ToString()))
+                Transform sector = board.transform.GetChild(i);
+                if (sector.GetComponent<SectorSystem>().GetState().Equals(blank))
                 {
                     sector.GetComponent<SectorSystem>().SetState(placeX);
-                    float currentScore = MiniMax(board, depth + 1, false);
+                    float currentScore = MiniMax(this.board, depth + 1, true);
                     sector.GetComponent<SectorSystem>().SetState(blank);
-                    if (currentScore < bestScore)
-                    {
-                        bestScore = currentScore;
-                    }
+                    bestScore = Math.Min(currentScore, bestScore);
                 }
             }
+            return bestScore;
         }
-        return bestScore;
     }
 }
